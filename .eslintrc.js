@@ -13,7 +13,9 @@ module.exports = {
     'semi': 0,
     'indent': 0,
     'max-len': 0,
-    "quotes": ["off", "double"]
+    "quotes": ["off", "double"],
+    "no-tabs": 0,
+    "import/prefer-default-export" : "warn"
   },
   parserOptions: {
     parser: 'babel-eslint',
