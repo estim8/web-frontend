@@ -21,7 +21,7 @@ $skin-ui-02:  darken(saturate($purple, 40%), 5%);
   background-color: transparent;
   @include gradient-x($skin-ui-01, $skin-ui-02, 0, 75%);
 
-  .df-logo {
+  .logo {
     &,&:hover,&:focus {
       color: #fff;
       font-weight: $font-weight-semibold;

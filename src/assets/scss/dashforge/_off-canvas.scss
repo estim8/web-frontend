@@ -101,7 +101,7 @@
   .close { color: inherit; }
   .off-canvas-header { border-bottom-color: rgba(#fff, .05); }
 
-  .df-logo {
+  .logo {
     &,&:hover,&:focus {
       color: inherit;
       span { color: inherit; }
@@ -128,7 +128,7 @@
 
   &.bg-primary,
   &.bg-secondary {
-    .df-logo {
+    .logo {
       color: inherit;
       &::before {
         background-color: rgba(#fff, .2);

@@ -8,9 +8,9 @@
 @import "../bootstrap/mixins";
 
 // bootstrap
-@import "../../node_modules/bootstrap/scss/functions";
-@import "../../node_modules/bootstrap/scss/variables";
-@import "../../node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
 
 
 $skin-text-01:        #fff;
@@ -24,7 +24,7 @@ $skin-ui-03:          #2d353e;
 
 /***** HEADER *****/
 
-.df-logo {
+.logo {
   color: $skin-text-01;
   span { color: $skin-text-03; }
   @include hover-focus() { color: #fff; }
