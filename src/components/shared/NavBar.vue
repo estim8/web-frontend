@@ -12,7 +12,7 @@
         <ul class="nav navbar-menu">
           <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Main Navigation</li>
           <li class="nav-item active">
-            <router-link to="/play" class="nav-link"><i data-feather="pie-chart"></i> Play</router-link>
+            <router-link to="/play" class="nav-link"><unicon name="angle-double-right" /> Play</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/about" class="nav-link"><i data-feather="layers"></i> About</router-link>
