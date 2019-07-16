@@ -6,10 +6,10 @@
 					<li class="breadcrumb-item">
 						<a href="#">Play</a>
 					</li>
-					<li class="breadcrumb-item active" aria-current="page">Start</li>
+					<li class="breadcrumb-item active" aria-current="page">Start a new game</li>
 				</ol>
 			</nav>
-			<h4 class="mg-b-0 tx-spacing--1">Setup a new game</h4>
+			<h4 class="mg-b-0 tx-spacing--1">Shall we play a game?</h4>
 		</div>
 		<div class="d-none d-md-block">
 			<button class="btn btn-sm pd-x-15 btn-white btn-uppercase">
