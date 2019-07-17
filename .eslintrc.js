@@ -15,7 +15,8 @@ module.exports = {
     'max-len': 0,
     "quotes": ["off", "double"],
     "no-tabs": 0,
-    "import/prefer-default-export" : "warn"
+    "import/prefer-default-export" : "warn",
+    "no-unused-vars": "warn",
   },
   parserOptions: {
     parser: 'babel-eslint',
