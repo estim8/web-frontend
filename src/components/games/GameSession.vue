@@ -1,12 +1,25 @@
 <template>
-<div class="row row-xs">
-    <b-form-text />>
-</div>
+<div>
+    <div v-if="gameState === 'lobby'">
+        In the lobby
+    </div>
+    <div v-else-if="gameState === 'playing'">
+        Playing
+    </div>
+    <div v-else-if="gameState === 'completed'">
+        In the lobby
+    </div>
+    </div>
 </template>
 
 <script>
 export default {
     name: "GameSession",
+    computed: {
+        gameState() {
+            return this.$store.state.currentGame.session.gameState;
+        },
+    },
 }
 </script>
 
