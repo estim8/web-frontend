@@ -1,7 +1,7 @@
 [![Build status](https://dev.azure.com/estim8/Estim8.io/_apis/build/status/Estim8.Web-CI)](https://dev.azure.com/estim8/Estim8.io/_build/latest?definitionId=1)
 
 # Estim8 web app
-The web-app is build with VueJS
+The web-app is being built with VueJS
 
 ## Backend
 The web-app is fronting the API @ https://github.com/estim8/backend-api
