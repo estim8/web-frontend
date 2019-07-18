@@ -4,7 +4,10 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:vue/essential',
+    'plugin:vue/recommended',
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+    'prettier/vue',
     '@vue/airbnb',
   ],
   rules: {
@@ -17,6 +20,7 @@ module.exports = {
     "no-tabs": 0,
     "import/prefer-default-export" : "warn",
     "no-unused-vars": "warn",
+    "comma-dangle": "off"
   },
   parserOptions: {
     parser: 'babel-eslint',
