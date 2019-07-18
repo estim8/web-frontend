@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import axios from 'axios';
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -17,16 +17,16 @@ export default new Vuex.Store({
         id: "",
         cardsetId: "",
         secret: "",
-        gameState: "",
-      },
+        gameState: ""
+      }
     },
     error: {
       code: 0,
-      message: "",
+      message: ""
     },
     currentPage: {
-      title: "",
-    },
+      title: ""
+    }
   },
   mutations: {
     [SET_ACTIVE_GAME](state, { id, cardsetId, secret }) {
@@ -37,12 +37,15 @@ export default new Vuex.Store({
     [SET_APP_ERROR](state, { errorCode, message }) {
       state.error.code = errorCode;
       state.error.message = message;
-    },
+    }
   },
   actions: {
     async [START_GAME]({ commit, dispatch }, { cardsetId, secret }) {
       try {
-        const response = await axios.post("https://api-qa.estim8.io/api/v1/games", { cardsetId, secret });
+        const response = await axios.post("https://api-qa.estim8.io/api/v1/games", {
+          cardsetId,
+          secret
+        });
         await dispatch(GET_GAME, response.headers.location);
       } catch (e) {
         commit(SET_APP_ERROR, { errorCode: e.code, message: "Server failed" });
@@ -55,11 +58,11 @@ export default new Vuex.Store({
           id: response.data.id,
           cardsetId: response.data.cardsetId,
           secret: response.data.secret,
-          gameState: response.data.state,
+          gameState: response.data.state
         });
       } catch (e) {
         commit(SET_APP_ERROR, { errorCode: e.code, message: "Server failed" });
       }
-    },
-  },
+    }
+  }
 });

@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from "vue";
+import Router from "vue-router";
 
 import StartGame from "@/components/games/StartGame.vue";
 import JoinGame from "@/components/games/JoinGame.vue";
@@ -13,31 +13,31 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/play',
-      name: 'play',
+      path: "/play",
+      name: "play",
       meta: { title: "Shall we play a game?" },
-      component: StartGame,
+      component: StartGame
     },
     {
       path: "/play/:gameId",
       name: "play-session",
       component: JoinGame,
       meta: { title: "Join a game" },
-      props: route => ({ gameId: route.params.gameId }),
+      props: route => ({ gameId: route.params.gameId })
     },
     {
       path: "/host/:gameId",
       name: "host-session",
       meta: { title: "Game in progress" },
       component: GameSession,
-      props: route => ({ gameId: route.params.gameId }),
+      props: route => ({ gameId: route.params.gameId })
     },
     {
       path: "/error",
       name: "error",
       meta: { title: "Oops! An error occured" },
-      component: ErrorPage,
-    },
+      component: ErrorPage
+    }
     // {
     //   path: '/about',
     //   name: 'about',
@@ -46,5 +46,5 @@ export default new Router({
     //   // which is lazy-loaded when the route is visited.
     //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
     // },
-  ],
+  ]
 });

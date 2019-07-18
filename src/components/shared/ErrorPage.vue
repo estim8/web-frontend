@@ -1,15 +1,11 @@
 <template>
-<div>
+  <div>
     An error has occured
-</div>
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>

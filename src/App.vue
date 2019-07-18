@@ -4,17 +4,17 @@
     <div class="content content-fixed">
       <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
         <PageHeader />
-        <router-view/>
+        <router-view />
       </div>
     </div>
     <PageFooter />
   </div>
 </template>
 <script>
-import { NavBar, PageHeader, PageFooter } from '@/components/shared';
+import { NavBar, PageHeader, PageFooter } from "@/components/shared";
 
 export default {
-  components: { NavBar, PageHeader, PageFooter },
+  components: { NavBar, PageHeader, PageFooter }
 };
 </script>
 

@@ -1,28 +1,26 @@
 <template>
-<div>
+  <div>
     <div v-if="gameState === 'lobby'">
-        In the lobby
+      In the lobby
     </div>
     <div v-else-if="gameState === 'playing'">
-        Playing
+      Playing
     </div>
     <div v-else-if="gameState === 'completed'">
-        In the lobby
+      In the lobby
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "GameSession",
-    computed: {
-        gameState() {
-            return this.$store.state.currentGame.session.gameState;
-        },
-    },
-}
+  name: "GameSession",
+  computed: {
+    gameState() {
+      return this.$store.state.currentGame.session.gameState;
+    }
+  }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
