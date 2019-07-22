@@ -4,9 +4,9 @@ import "./assets/scss/estim8.scss";
 import Vue from "vue";
 import BootstrapVue from "bootstrap-vue";
 import Unicon from "vue-unicons";
+import store from "@/state/store";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
 import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
