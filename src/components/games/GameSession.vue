@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="gameState === 'lobby'">
+    <div v-if="gameState === 'awaitingPlayers'">
       In the lobby
     </div>
     <div v-else-if="gameState === 'playing'">

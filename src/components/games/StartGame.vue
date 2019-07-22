@@ -7,11 +7,13 @@
             <b-form-group>
               <label class="d-block">Type of cards</label>
               <b-form-select v-model="cardsetId">
-                <option value="84e1459d-2cca-496b-a44c-a9a4c7bfded5">Default Fibonnaci</option>
+                <option selected="selected" value="84e1459d-2cca-496b-a44c-a9a4c7bfded5"
+                  >Default Fibonnaci
+                </option>
               </b-form-select>
             </b-form-group>
             <b-form-group>
-              <label class="d-block">Secret</label>
+              <label class="d-block">Game password</label>
               <b-input v-model="secret" />
             </b-form-group>
             <b-button variant="primary" title="Start game" @click="startGame"
@@ -42,14 +44,18 @@ export default {
   methods: {
     startGame() {
       this.$store
-        .dispatch("START_GAME", { cardsetId: this.cardsetId, secret: this.secret })
+        .dispatch("games/START_GAME", { cardsetId: this.cardsetId, secret: this.secret })
         .then(() => {
           this.$router.push({
             name: "host-session",
             params: { gameId: this.$store.state.currentGame.session.id }
           });
         })
-        .catch(() => this.$router.push({ name: "error" }));
+        // eslint-disable-next-line prettier/prettier
+        .catch((e) => {
+          console.log({ e });
+          this.$router.push({ name: "error" });
+        });
     }
   }
 };
