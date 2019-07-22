@@ -19,6 +19,7 @@
             <b-button variant="primary" title="Start game" @click="startGame"
               >Start a game</b-button
             >
+            Id: {{ activeGameId }}
           </b-form>
         </div>
       </div>
@@ -27,6 +28,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "StartGame",
   components: {},
@@ -37,20 +40,21 @@ export default {
     };
   },
   computed: {
-    activeGameId() {
-      return this.$store.state.currentGame;
+    ...mapGetters({ activeGameId: "games/activeGameId" })
+  },
+  watch: {
+    activeGameId(id) {
+      console.log({ id });
+      this.$router.push({
+        name: "host-session",
+        params: { gameId: id }
+      });
     }
   },
   methods: {
     startGame() {
       this.$store
         .dispatch("games/START_GAME", { cardsetId: this.cardsetId, secret: this.secret })
-        .then(() => {
-          // this.$router.push({
-          //   name: "host-session",
-          //   params: { gameId: this.$store.state.currentGame.session.id }
-          // });
-        })
         // eslint-disable-next-line prettier/prettier
         .catch((e) => {
           console.log({ e });

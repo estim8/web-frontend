@@ -17,7 +17,7 @@ export default {
   name: "GameSession",
   computed: {
     gameState() {
-      return this.$store.state.currentGame.session.gameState;
+      return this.$store.state.games.currentGame.session.gameState;
     }
   }
 };

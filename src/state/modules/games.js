@@ -16,6 +16,10 @@ export const state = {
   }
 };
 
+export const getters = {
+  activeGameId: state => state.currentGame.session.id
+};
+
 export const mutations = {
   [SET_ACTIVE_GAME](state, { id, cardsetId, secret }) {
     state.currentGame.session.id = id;
