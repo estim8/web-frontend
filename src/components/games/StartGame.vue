@@ -7,7 +7,7 @@
             <b-form-group>
               <label class="d-block">Type of cards</label>
               <b-form-select v-model="cardsetId">
-                <option selected="selected" value="84e1459d-2cca-496b-a44c-a9a4c7bfded5"
+                <option selected="true" value="84e1459d-2cca-496b-a44c-a9a4c7bfded5"
                   >Default Fibonnaci
                 </option>
               </b-form-select>
@@ -35,7 +35,7 @@ export default {
   components: {},
   data() {
     return {
-      cardsetId: "",
+      cardsetId: "84e1459d-2cca-496b-a44c-a9a4c7bfded5",
       // eslint-disable-next-line no-bitwise
       secret: [...Array(10)].map(i => (~~(Math.random() * 36)).toString(36)).join("")
     };
