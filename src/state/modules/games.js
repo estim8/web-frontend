@@ -13,6 +13,7 @@ export const state = {
   currentGame: {
     session: {
       id: "",
+      dealerToken: "",
       cardsetId: "",
       secret: "",
       gameState: ""
@@ -22,7 +23,11 @@ export const state = {
 };
 
 export const getters = {
-  activeGameId: state => state.currentGame.session.id
+  activeGameId: state => state.currentGame.session.id,
+  activeSession: state => state.currentGame.session,
+  // eslint-disable-next-line prettier/prettier
+  isDealer: state => state.currentGame.session.dealerToken !== undefined &&
+    state.currentGame.session.dealerToken !== ""
 };
 
 export const mutations = {
@@ -31,6 +36,7 @@ export const mutations = {
     state.currentGame.session.cardsetId = game.cardsetId;
     state.currentGame.session.secret = game.secret;
     state.currentGame.session.gameState = game.gameState;
+    state.currentGame.session.dealerToken = game.dealerToken;
   },
   [PLAYER_ADDED_TO_GAME](state, { gameId, playerId }) {
     state.currentGame.players = [...state.currentGame.players, { playerId }];
@@ -54,7 +60,10 @@ export const actions = {
         cardsetId,
         secret
       });
-      await dispatch(GET_GAME, response.headers.location);
+      await dispatch(GET_GAME, {
+        location: response.headers.location,
+        dealerToken: response.headers["x-dealer-token"]
+      });
     } catch (e) {
       console.log({ e });
       commit(
@@ -64,14 +73,15 @@ export const actions = {
       );
     }
   },
-  async [GET_GAME]({ commit }, uri) {
+  async [GET_GAME]({ commit }, { location, dealerToken }) {
     try {
-      const response = await this.$api.get(uri);
+      const response = await this.$api.get(location);
       commit(SET_ACTIVE_GAME, {
         id: response.data.id,
         cardsetId: response.data.cardsetId,
         secret: response.data.secret,
-        gameState: response.data.state
+        gameState: response.data.state,
+        dealerToken
       });
     } catch (e) {
       commit(

@@ -11,17 +11,22 @@
       </nav>
       <h4 class="mg-b-0 tx-spacing--1">{{ $route.meta.title }}</h4>
     </div>
-    <div class="d-none d-md-block">
+    <div v-if="isDealer" class="d-none d-md-block">
       <button class="btn btn-sm pd-x-15 btn-white btn-uppercase">
-        <i data-feather="mail" class="wd-10 mg-r-5"></i> Email
+        <i data-feather="mail" class="wd-10 mg-r-5"></i> Start game
       </button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
-  name: "PageHeader"
+  name: "PageHeader",
+  computed: {
+    ...mapGetters({ isDealer: "games/isDealer" })
+  }
 };
 </script>
 

@@ -13,11 +13,12 @@
       <!-- navbar-menu-header -->
       <ul class="nav navbar-menu">
         <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Main Navigation</li>
-        <li class="nav-item active">
-          <router-link to="/play" class="nav-link"
-            ><unicon name="angle-double-right" /> Play</router-link
-          >
-        </li>
+        <router-link tag="li" active-class="active" to="/play" class="nav-item">
+          <a class="nav-link" href="#"><unicon name="angle-double-right" /> Play</a>
+        </router-link>
+        <router-link tag="li" active-class="active" to="/join" class="nav-item">
+          <a href="#" class="nav-link"><unicon name="angle-double-right" /> Join a game</a>
+        </router-link>
         <li class="nav-item">
           <router-link to="/about" class="nav-link"
             ><i data-feather="layers"></i> About</router-link

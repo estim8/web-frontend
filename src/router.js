@@ -18,32 +18,43 @@ const router = new Router({
       path: "/play",
       name: "play",
       meta: { title: "Shall we play a game?" },
-      component: StartGame
+      component: StartGame,
+      beforeResolve(to, from, next) {
+        const game = store.getters["games/activeSession"];
+
+        if (game && game.id && game.dealerToken) {
+          next({ name: "host-session", params: { gameId: game.id } });
+        }
+        if (game && game.id && !game.dealerToken) {
+          next({ name: "join-session", params: { gameId: game.id } });
+        }
+
+        next();
+      }
     },
     {
       path: "/play/:gameId",
-      name: "play-session",
+      alias: ["/join/:gameId"],
+      name: "join-session",
       component: JoinGame,
       meta: { title: "Join a game" },
       props: route => ({ gameId: route.params.gameId })
     },
     {
+      path: "/join",
+      meta: { title: "Join a game" },
+      component: JoinGame
+    },
+    {
       path: "/table/:gameId",
       name: "host-session",
-      meta: { title: "Game in progress" },
+      meta: { title: "Welcome at the table" },
       component: GameTable,
       props: route => ({ gameId: route.params.gameId }),
-      beforeRouteEnter(to, from, next) {
-        console.log(store.getters["games/activeGameId"]);
-        console.log(to.params.gameId);
-        if (to.params.gameId !== store.getters["games/activeGameId"]) next({ name: "play" });
-
-        next();
-      },
-      beforeRouteUpdate(to, from, next) {
-        console.log(store.getters["games/activeGameId"]);
-        console.log(to.params.gameId);
-        if (to.params.gameId !== store.getters["games/activeGameId"]) next({ name: "play" });
+      beforeResolve(to, from, next) {
+        if (to.params.gameId !== store.getters["games/activeGameId"]) {
+          next({ name: "join-session", params: { gameId: to.params.gameId } });
+        }
 
         next();
       }
