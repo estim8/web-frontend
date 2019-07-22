@@ -20,7 +20,8 @@ module.exports = {
     "no-tabs": 0,
     "import/prefer-default-export" : "warn",
     "no-unused-vars": "warn",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "operator-linebreak": "off"
   },
   parserOptions: {
     parser: 'babel-eslint',
