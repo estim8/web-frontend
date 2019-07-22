@@ -1,10 +1,20 @@
+/* eslint-disable no-param-reassign */
 import axios from "axios";
 import state from "vuex";
 
-export const apiUrl = "https://api-qa.estim8.io/api/v1";
+const axiosInstance = axios.create({
+  baseURL: "https://api-qa.estim8.io/api/v1"
+});
 
-export const api = axios.create();
+axiosInstance.defaults.headers.common.Authorization = state.currentUser
+  ? state.currentUser.token
+  : "";
 
-function setDefaultAuthHeaders() {
-  axios.defaults.headers.common.Authorization = state.currentUser ? state.currentUser.token : "";
-}
+const BackendApi = {
+  install(Vue, options) {
+    Vue.prototype.$api = axiosInstance;
+    if (options && options.store) options.store.$api = axiosInstance;
+  }
+};
+
+export default BackendApi;

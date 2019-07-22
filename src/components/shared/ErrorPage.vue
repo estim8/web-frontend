@@ -1,11 +1,17 @@
 <template>
-  <div>
-    An error has occured
-  </div>
+  <div>An error has occured: {{ error.message }}</div>
 </template>
 
 <script>
-export default {};
+import store from "vuex";
+
+export default {
+  computed: {
+    error() {
+      return store.state.error;
+    }
+  }
+};
 </script>
 
 <style></style>

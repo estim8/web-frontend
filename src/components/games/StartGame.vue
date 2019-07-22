@@ -46,10 +46,10 @@ export default {
       this.$store
         .dispatch("games/START_GAME", { cardsetId: this.cardsetId, secret: this.secret })
         .then(() => {
-          this.$router.push({
-            name: "host-session",
-            params: { gameId: this.$store.state.currentGame.session.id }
-          });
+          // this.$router.push({
+          //   name: "host-session",
+          //   params: { gameId: this.$store.state.currentGame.session.id }
+          // });
         })
         // eslint-disable-next-line prettier/prettier
         .catch((e) => {

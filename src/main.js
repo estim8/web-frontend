@@ -8,10 +8,12 @@ import store from "@/state/store";
 import App from "./App.vue";
 import router from "./router";
 import "./registerServiceWorker";
+import BackendApi from "@/api";
 
 Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
+Vue.use(BackendApi, { store });
 
 Unicon.add([uniAngleDoubleRight]);
 Vue.use(Unicon);
