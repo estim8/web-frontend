@@ -1,10 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
 import NProgress from "nprogress";
+import store from "@/state/store";
 
 import StartGame from "@/components/games/StartGame.vue";
 import JoinGame from "@/components/games/JoinGame.vue";
-import GameSession from "@/components/games/GameSession.vue";
+import GameTable from "@/components/games/GameTable.vue";
 import ErrorPage from "@/components/shared/ErrorPage.vue";
 
 Vue.use(Router);
@@ -27,11 +28,25 @@ const router = new Router({
       props: route => ({ gameId: route.params.gameId })
     },
     {
-      path: "/host/:gameId",
+      path: "/table/:gameId",
       name: "host-session",
       meta: { title: "Game in progress" },
-      component: GameSession,
-      props: route => ({ gameId: route.params.gameId })
+      component: GameTable,
+      props: route => ({ gameId: route.params.gameId }),
+      beforeRouteEnter(to, from, next) {
+        console.log(store.getters["games/activeGameId"]);
+        console.log(to.params.gameId);
+        if (to.params.gameId !== store.getters["games/activeGameId"]) next({ name: "play" });
+
+        next();
+      },
+      beforeRouteUpdate(to, from, next) {
+        console.log(store.getters["games/activeGameId"]);
+        console.log(to.params.gameId);
+        if (to.params.gameId !== store.getters["games/activeGameId"]) next({ name: "play" });
+
+        next();
+      }
     },
     {
       path: "/error",

@@ -16,7 +16,7 @@
 import GameLobby from "./GameLobby.vue";
 
 export default {
-  name: "GameSession",
+  name: "GameTable",
   components: { GameLobby },
   computed: {
     gameState() {
