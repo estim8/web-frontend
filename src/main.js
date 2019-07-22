@@ -4,6 +4,8 @@ import "./assets/scss/estim8.scss";
 import Vue from "vue";
 import BootstrapVue from "bootstrap-vue";
 import Unicon from "vue-unicons";
+import VueQriously from "vue-qriously";
+
 import store from "@/state/store";
 import App from "./App.vue";
 import router from "./router";
@@ -14,6 +16,7 @@ Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
 Vue.use(BackendApi, { store });
+Vue.use(VueQriously);
 
 Unicon.add([uniAngleDoubleRight]);
 Vue.use(Unicon);

@@ -44,7 +44,6 @@ export default {
   },
   watch: {
     activeGameId(id) {
-      console.log({ id });
       this.$router.push({
         name: "host-session",
         params: { gameId: id }
