@@ -8,7 +8,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:prettier/recommended',
     'prettier/vue',
-    '@vue/airbnb',
+    // '@vue/airbnb',
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -21,7 +21,8 @@ module.exports = {
     "import/prefer-default-export" : "warn",
     "no-unused-vars": "warn",
     "comma-dangle": "off",
-    "operator-linebreak": "off"
+    "operator-linebreak": "off",
+    "arrow-parens": "off"
   },
   parserOptions: {
     parser: 'babel-eslint',
