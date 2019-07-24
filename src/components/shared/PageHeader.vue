@@ -16,14 +16,18 @@
         <i data-feather="mail" class="wd-10 mg-r-5"></i> Start game
       </button>
     </div>
+    <div class="d-none d-md-block">
+      <ConnectionDot />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-
+import ConnectionDot from "@/components/shared/ConnectionDot.vue";
 export default {
   name: "PageHeader",
+  components: { ConnectionDot },
   computed: {
     ...mapGetters({ isDealer: "games/isDealer" })
   }

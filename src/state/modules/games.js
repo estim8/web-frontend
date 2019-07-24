@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 import _ from "lodash";
+import Vue from "vue";
 
 export const START_GAME = "START_GAME";
 export const GET_GAME = "GET_GAME";
@@ -30,6 +31,7 @@ export const state = {
 };
 
 export const getters = {
+  activeGame: state => state.currentGame,
   activeGameId: state => state.currentGame.gameId,
   activeSession: state => state.currentGame.session,
   isDealer: state => state.currentGame.session.playerId === state.currentGame.dealerId
@@ -48,7 +50,7 @@ export const mutations = {
     state.currentGame.session.playerId = playerId;
   },
   [SET_WEBSOCKET_CONNECTION](state, { connected }) {
-    state.currentGame.websocketConnected = connected;
+    state.currentGame.session.websocketConnected = connected;
   },
   [SET_GAME_SECRET](state, { secret }) {
     state.currentGame.secret = secret;
