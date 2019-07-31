@@ -22,6 +22,7 @@ $body-color:                      $color-text-01;
 
 // Border
 $border-color:                    rgba(darken($color-ui-02, 50%), .16);
+$header-border-color:             #000;
 
 // Buttons + Forms
 $btn-focus-box-shadow:            none;
@@ -35,6 +36,8 @@ $input-btn-padding-x:             .625rem;
 $input-btn-font-size:             .875rem;
 $input-btn-font-size-sm:          .8125rem;
 
+$border-radius:                   0px;
+
 // Buttons
 $btn-padding-x:                   .9375rem;
 
@@ -46,12 +49,12 @@ $close-color:                     $color-text-02;
 
 // Fonts
 $font-size-base:                  .875rem;
-$font-family-base:                'IBM Plex Sans', sans-serif;
+$font-family-base:                $font-family-plex;
 
-$headings-font-weight:            $font-weight-medium;
+$headings-font-weight:            $font-weight-bold;
 $headings-color:                  $color-text-01;
 $headings-line-height:            1.25;
-$headings-font-weight:            $font-weight-medium;
+$headings-font-weight:            $font-weight-bold;
 
 // Forms
 $input-border-color:              $color-ui-03;

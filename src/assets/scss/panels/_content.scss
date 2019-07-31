@@ -8,7 +8,8 @@
 
 .content-fixed {
   @include media-breakpoint-up(lg) {
-    margin-top: $height-header;
+    margin-left: 25px;
+    margin-right: 25px;
   }
 }
 

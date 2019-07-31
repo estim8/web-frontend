@@ -16,12 +16,23 @@
 }
 
 .navbar-header {
+  font-family: $font-family-plexmono;
   align-items: stretch;
   height: $height-header-mobile;
   padding: 0;
   justify-content: flex-start;
   background-color: #fff;
-  border-bottom: 1px solid $border-color;
+  box-shadow: 1px 1px 0px $header-shadow-color,
+              2px 2px 0px $header-shadow-color,
+              3px 3px 0px $header-shadow-color,
+              4px 4px 0px $header-shadow-color,
+              5px 5px 0px $header-shadow-color,
+              6px 6px 0px $header-shadow-color,
+              7px 7px 0px $header-shadow-color,
+              8px 8px 0px $header-shadow-color,
+              9px 9px 0px $header-shadow-color,
+              10px 10px 0px $header-shadow-color;
+  //border-bottom: 1px solid $header-border-color;
 
   @include media-breakpoint-up(lg) {
     height: $height-header;
@@ -48,7 +59,7 @@
     @include media-breakpoint-up(lg) {
       width: $width-sidebar;
       padding: 0 0 0 20px;
-      margin-top: -3px;
+      //margin-top: -3px;
     }
   }
 
@@ -254,10 +265,12 @@
 .navbar-header-fixed {
   @include media-breakpoint-up(lg) {
     position: fixed;
+    margin: 25px;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
+
   }
 }
 
@@ -327,8 +340,13 @@
     flex-direction: row;
     padding: 0;
     width: 100%;
-    max-width: 780px;
-    margin-top: -3px;
+    //max-width: 780px;
+    //margin-top: -3px;
+  }
+
+  .nav-item:hover {
+    border-bottom: 2px solid #000;
+    padding-bottom: 5px;
   }
 
   .nav-item {
@@ -342,11 +360,14 @@
 
       @include media-breakpoint-up(xl) { margin-left: 30px; }
     }
+    
 
     &.active {
       .nav-link {
         position: relative;
         color: $color-brand-01;
+        font-weight: $font-weight-bold;
+        font-style: italic;
 
         &::before {
           content: '';
@@ -362,7 +383,7 @@
 
         svg {
           color: $color-brand-01;
-          fill: rgba($color-brand-01, .2);
+          fill: $color-brand-01;
         }
       }
 
@@ -400,14 +421,15 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    font-size: 14px;
-    font-weight: $font-weight-medium;
+    font-size: 16px;
+    font-weight: $font-weight-light;
     padding: 0 20px;
     color: $color-text-01;
+    //text-transform: uppercase;
     @include transition($transition-base);
 
     @include media-breakpoint-up(lg) {
-      font-weight: $font-weight-medium;
+      font-weight: $font-weight-light;
       padding: 0;
     }
 
@@ -415,7 +437,7 @@
       color: $color-brand-01;
       svg {
         color: $color-brand-01;
-        fill: rgba($color-brand-01, .2);
+        fill: rgba($color-brand-01, .9);
       }
     }
 
@@ -423,12 +445,12 @@
       width: 18px;
       height: 18px;
       stroke-width: 2.2px;
-      fill: rgba($color-text-02, .1);
-      margin-right: 15px;
-      color: $gray-600;
+      fill: #000;
+      margin-right: 10px;
+      color: #000;
       @include transition($transition-base);
 
-      @include media-breakpoint-up(lg) { display: none; }
+      @include media-breakpoint-up(sm) { display: block; }
     }
   }
 

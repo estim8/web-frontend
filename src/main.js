@@ -1,4 +1,4 @@
-import { uniAngleDoubleRight } from "vue-unicons/src/icons";
+import { uniAngleDoubleRight, uniCaretRight, uniUserPlus } from "vue-unicons/src/icons";
 import "./assets/scss/estim8.scss";
 
 import Vue from "vue";
@@ -18,7 +18,7 @@ Vue.use(BootstrapVue);
 Vue.use(BackendApi, { store });
 Vue.use(VueQriously);
 
-Unicon.add([uniAngleDoubleRight]);
+Unicon.add([uniAngleDoubleRight, uniCaretRight, uniUserPlus]);
 Vue.use(Unicon);
 
 new Vue({

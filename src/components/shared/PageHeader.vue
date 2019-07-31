@@ -1,14 +1,14 @@
 <template>
   <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
     <div>
-      <nav aria-label="breadcrumb">
+      <!-- <nav aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-style1 mg-b-10">
           <li class="breadcrumb-item">
             <a href="#">Play</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">Start a new game</li>
         </ol>
-      </nav>
+      </nav> -->
       <h4 class="mg-b-0 tx-spacing--1">{{ $route.meta.title }}</h4>
     </div>
     <div v-if="isDealer" class="d-none d-md-block">

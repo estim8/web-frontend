@@ -15,12 +15,15 @@
 @import "../bootstrap/mixins";
 
 // Bootsrap
-@import "../../node_modules/bootstrap/scss/functions";
-@import "../../node_modules/bootstrap/scss/variables";
-@import "../../node_modules/bootstrap/scss/mixins";
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+// @import "../../node_modules/bootstrap/scss/functions";
+// @import "../../node_modules/bootstrap/scss/variables";
+// @import "../../node_modules/bootstrap/scss/mixins";
 
 .page-profile {
   color: $color-text-02;
+  background-color: $body-background-color;
 }
 
 .content-profile {

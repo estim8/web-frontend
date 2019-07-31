@@ -31,19 +31,6 @@ const BackendApi = {
       })
       .configureLogging(LogLevel.Debug)
       .build();
-
-    // eslint-disable-next-line prettier/prettier
-    store.$signalr.on("PlayerAddedToGame", ({ gameId, playerId }) => {
-      store.dispatch("games/PLAYER_ADDED_TO_GAME", { gameId, playerId }, { root: true });
-    });
-
-    store.$signalr.on("PlayerRemovedFromGame", ({ gameId, playerId }) => {
-      options.store.dispatch(
-        "games/PLAYER_REMOVED_FROM_GAME",
-        { gameId, playerId },
-        { root: true }
-      );
-    });
   }
 };
 
