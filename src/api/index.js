@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
 import axios from "axios";
 import { HubConnectionBuilder, LogLevel } from "@aspnet/signalr";
+import { apiEndpoint, apiVersion } from "@/config.json";
 
-const baseURL = "https://api-qa.estim8.io";
 const axiosInstance = axios.create({
-  baseURL: `${baseURL}/api/v1`
+  baseURL: `${apiEndpoint}/api/${apiVersion}`
 });
 
 const BackendApi = {
@@ -26,7 +26,7 @@ const BackendApi = {
     store.$api = axiosInstance;
 
     store.$signalr = new HubConnectionBuilder()
-      .withUrl(`${baseURL}/hubs/games`, {
+      .withUrl(`${apiEndpoint}/hubs/games`, {
         accessTokenFactory: () => store.getters["games/activeSession"].accessToken
       })
       .configureLogging(LogLevel.Debug)
