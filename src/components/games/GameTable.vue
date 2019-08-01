@@ -6,8 +6,8 @@
     <div v-else-if="activeGame.state === 'Playing'">
       Playing
     </div>
-    <div v-else-if="activeGame.state === 'Completed'">
-      In the lobby
+    <div v-else-if="activeGame.state === 'Ended'">
+      Ended
     </div>
   </div>
 </template>

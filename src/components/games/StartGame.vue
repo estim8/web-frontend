@@ -54,7 +54,7 @@ export default {
   methods: {
     startGame() {
       this.$store
-        .dispatch("games/START_GAME", { cardsetId: this.cardsetId, secret: this.secret })
+        .dispatch("games/CREATE_GAME", { cardsetId: this.cardsetId, secret: this.secret })
         // eslint-disable-next-line prettier/prettier
         .catch((e) => {
           console.log({ e });

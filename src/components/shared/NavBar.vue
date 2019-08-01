@@ -13,21 +13,19 @@
       <!-- navbar-menu-header -->
       <ul class="nav navbar-menu">
         <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Main Navigation</li>
-        <router-link tag="li" active-class="active" to="/play" class="nav-item">
+        <router-link v-if="!inSession" tag="li" active-class="active" to="/play" class="nav-item">
           <a class="nav-link" href="#"><unicon name="caret-right" /> Play</a>
         </router-link>
-        <router-link tag="li" active-class="active" to="/join" class="nav-item">
+        <router-link v-if="!inSession" tag="li" active-class="active" to="/join" class="nav-item">
           <a href="#" class="nav-link"><unicon name="user-plus" /> Join a game</a>
         </router-link>
-        <li class="nav-item">
-          <router-link to="/about" class="nav-link"
-            ><i data-feather="layers"></i> About</router-link
-          >
-        </li>
+        <router-link v-if="!inSession" tag="li" active-class="active" to="/about" class="nav-item">
+          <a href="#" class="nav-link"> About</a>
+        </router-link>
       </ul>
     </div>
     <!-- navbar-menu-wrapper -->
-
+    <GameControls v-if="inSession" />
     <!-- navbar-right -->
   </header>
   <!-- navbar -->
@@ -35,9 +33,17 @@
 
 <script>
 import LogoImage from "@/components/shared/LogoImage.vue";
+import GameControls from "@/components/shared/GameControls.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "NavBar",
-  components: { LogoImage }
+  components: { LogoImage, GameControls },
+  computed: {
+    ...mapGetters({ activeGameId: "games/activeGameId" }),
+    inSession() {
+      return this.activeGameId !== "";
+    }
+  }
 };
 </script>
 
