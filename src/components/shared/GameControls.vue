@@ -5,8 +5,9 @@
         Start game
       </b-button>
       <b-button v-if="activeGame.state === 'Playing'" @click="endGame">End game</b-button>
+      <b-button v-if="activeGame.state === 'Ended'" @click="endSession">End session</b-button>
     </span>
-    <b-button v-if="activeGame.state === 'Ended'" @click="endSession">{{ endBtnText }}</b-button>
+    <b-button v-if="!isDealer" @click="endSession">Leave game</b-button>
   </div>
 </template>
 
@@ -18,9 +19,6 @@ export default {
     ...mapGetters({ isDealer: "games/isDealer", activeGame: "games/activeGame" }),
     canStartGame() {
       return this.activeGame.state === "AwaitingPlayers";
-    },
-    endBtnText() {
-      return this.isDealer ? "End session" : "Leave game";
     }
   },
   methods: {
