@@ -2,6 +2,7 @@
   <div>
     <qriously :value="joinLink" :size="200" />
     <div>{{ joinLink }}</div>
+    <div>{{ activeGame.secret }}</div>
     <game-player-list />
   </div>
 </template>
@@ -14,7 +15,7 @@ export default {
   name: "GameLobby",
   components: { GamePlayerList },
   computed: {
-    ...mapGetters({ activeGameId: "games/activeGameId" }),
+    ...mapGetters({ activeGameId: "games/activeGameId", activeGame: "games/activeGame" }),
     joinLink() {
       return `https://www.estim8.io/#/join/${this.activeGameId}`;
     }

@@ -17,7 +17,7 @@
             <label class="d-block">Secret</label>
             <b-input v-model="secret" />
           </b-form-group>
-          <b-button @click="joinGame">Join game</b-button>
+          <b-button variant="primary" @click="joinGame">Join game</b-button>
         </b-form>
       </div>
     </div>
@@ -48,7 +48,7 @@ export default {
   methods: {
     joinGame() {
       this.$store
-        .dispatch("START_GAME", { cardsetId: this.cardsetId, secret: this.secret })
+        .dispatch("games/JOIN_GAME", { gameId: this.gameIdEntered, secret: this.secret })
         .then(() => {
           this.$router.push({ name: "join-session", params: { gameId: this.gameIdEntered } });
         })

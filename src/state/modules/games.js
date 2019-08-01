@@ -3,6 +3,7 @@ import _ from "lodash";
 import Vue from "vue";
 
 export const START_GAME = "START_GAME";
+export const JOIN_GAME = "JOIN_GAME";
 export const GET_GAME = "GET_GAME";
 export const CONNECT_WEBSOCKET = "CONNECT_WEBSOCKET";
 
@@ -40,8 +41,6 @@ export const getters = {
 export const mutations = {
   [SET_ACTIVE_GAME](state, game) {
     state.currentGame.gameId = game.id;
-    state.currentGame.cardsetId = game.cardsetId;
-    state.currentGame.secret = game.secret;
     state.currentGame.state = game.state;
     state.currentGame.dealerId = game.dealerId;
   },
@@ -56,7 +55,8 @@ export const mutations = {
     state.currentGame.secret = secret;
   },
   [PLAYER_ADDED_TO_GAME](state, { gameId, playerId }) {
-    state.currentGame.players = [...state.currentGame.players, { playerId }];
+    if (!state.currentGame.players[playerId])
+      state.currentGame.players = [...state.currentGame.players, { playerId }];
   },
   [PLAYER_REMOVED_FROM_GAME](state, { gameId, playerId }) {
     _.remove(state.currentGame.players, player => player.playerId === playerId);
@@ -65,17 +65,17 @@ export const mutations = {
 };
 
 export const actions = {
-  async [START_GAME]({ commit, dispatch }, { cardsetId, secret }) {
+  async [START_GAME]({ commit, dispatch }, { secret }) {
     try {
       const { data, headers } = await this.$api.post("games", {
-        cardsetId,
         secret
       });
       commit(SET_GAME_SESSION, {
         playerId: data.playerId,
         accessToken: data.token.access_Token
       });
-      commit(SET_GAME_SECRET, { secret: data.secret });
+      commit(SET_GAME_SECRET, { secret: secret });
+      commit(PLAYER_ADDED_TO_GAME, { gameId: data.id, playerId: data.playerId });
 
       await dispatch(CONNECT_WEBSOCKET);
 
@@ -91,6 +91,26 @@ export const actions = {
       );
     }
   },
+
+  async [JOIN_GAME]({ commit, dispatch }, { gameId, secret }) {
+    try {
+      const { data } = await this.$api.post(`games/${gameId}/players`, { secret });
+
+      commit(SET_GAME_SESSION, { playerId: data.playerId, accessToken: data.token.access_Token });
+      commit(PLAYER_ADDED_TO_GAME, { gameId, playerId: data.playerId });
+
+      await dispatch(CONNECT_WEBSOCKET);
+
+      await dispatch(GET_GAME, { location: `games/${gameId}` });
+    } catch (e) {
+      commit(
+        "app/SET_APP_ERROR",
+        { errorCode: e.response.status, message: e.response.statusText },
+        { root: true }
+      );
+    }
+  },
+
   async [CONNECT_WEBSOCKET]({ commit, dispatch }) {
     this.$signalr.on("PlayerAddedToGame", ({ gameId, playerId }) => {
       commit(PLAYER_ADDED_TO_GAME, { gameId, playerId });
@@ -116,8 +136,6 @@ export const actions = {
 
       commit(SET_ACTIVE_GAME, {
         id: data.id,
-        cardsetId: data.cardsetId,
-        secret: data.secret,
         state: data.state,
         dealerId: data.dealerId
       });
