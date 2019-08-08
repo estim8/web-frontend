@@ -16,6 +16,14 @@
               <label class="d-block">Game password</label>
               <b-input v-model="secret" />
             </b-form-group>
+            <b-form-group>
+              <label class="d-block">Player name</label>
+              <b-input v-model="playerName" />
+            </b-form-group>
+            <b-form-group>
+              <label class="d-block">Gravatar e-mail</label>
+              <b-input v-model="gravatar" />
+            </b-form-group>
             <b-button variant="primary" title="Start game" @click="startGame"
               >Start a game</b-button
             >
@@ -37,7 +45,9 @@ export default {
     return {
       cardsetId: "84e1459d-2cca-496b-a44c-a9a4c7bfded5",
       // eslint-disable-next-line no-bitwise
-      secret: [...Array(10)].map(i => (~~(Math.random() * 36)).toString(36)).join("")
+      secret: [...Array(10)].map(i => (~~(Math.random() * 36)).toString(36)).join(""),
+      playerName: "",
+      gravatar: undefined
     };
   },
   computed: {
@@ -54,7 +64,12 @@ export default {
   methods: {
     startGame() {
       this.$store
-        .dispatch("games/CREATE_GAME", { cardsetId: this.cardsetId, secret: this.secret })
+        .dispatch("games/CREATE_GAME", {
+          cardsetId: this.cardsetId,
+          secret: this.secret,
+          playerName: this.playerName,
+          gravatar: this.gravatar
+        })
         // eslint-disable-next-line prettier/prettier
         .catch((e) => {
           console.log({ e });

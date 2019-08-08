@@ -17,6 +17,14 @@
             <label class="d-block">Secret</label>
             <b-input v-model="secret" />
           </b-form-group>
+          <b-form-group>
+            <label class="d-block">Player name</label>
+            <b-input v-model="playerName" />
+          </b-form-group>
+          <b-form-group>
+            <label class="d-block">Gravatar</label>
+            <b-input v-model="gravatar" />
+          </b-form-group>
           <b-button variant="primary" @click="joinGame">Join game</b-button>
         </b-form>
       </div>
@@ -34,6 +42,8 @@ export default {
   data() {
     return {
       secret: "",
+      playerName: "",
+      gravatar: undefined,
       gameIdEntered: this.gameId,
       showQrScanner: false,
       scannedCode: "",
@@ -48,7 +58,12 @@ export default {
   methods: {
     joinGame() {
       this.$store
-        .dispatch("games/JOIN_GAME", { gameId: this.gameIdEntered, secret: this.secret })
+        .dispatch("games/JOIN_GAME", {
+          gameId: this.gameIdEntered,
+          secret: this.secret,
+          playerName: this.playerName,
+          gravatar: this.gravatar
+        })
         .then(() => {
           this.$router.push({ name: "join-session", params: { gameId: this.gameIdEntered } });
         })

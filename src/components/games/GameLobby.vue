@@ -1,9 +1,14 @@
 <template>
   <div>
-    <qriously :value="joinLink" :size="200" />
-    <div>{{ joinLink }}</div>
-    <div>{{ activeGame.secret }}</div>
-    <game-player-list />
+    <div class="row">
+      <qriously :value="joinLink" :size="200" />
+      <div>{{ joinLink }}</div>
+      <div>&nbsp;</div>
+      <div>{{ activeGame.secret }}</div>
+    </div>
+    <div class="row">
+      <game-player-list />
+    </div>
   </div>
 </template>
 
