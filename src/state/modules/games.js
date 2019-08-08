@@ -70,9 +70,12 @@ export const mutations = {
   [SET_GAME_SECRET](state, { secret }) {
     state.currentGame.secret = secret;
   },
-  [PLAYER_ADDED_TO_GAME](state, { gameId, playerId }) {
-    if (!state.currentGame.players[playerId])
-      state.currentGame.players = [...state.currentGame.players, { playerId }];
+  [PLAYER_ADDED_TO_GAME](state, { gameId, playerId, playerName, gravatar }) {
+    if (!_.find(state.currentGame.players, player => player.playerId === playerId))
+      state.currentGame.players = [
+        ...state.currentGame.players,
+        { playerId, playerName, gravatar }
+      ];
   },
   [PLAYER_REMOVED_FROM_GAME](state, { gameId, playerId }) {
     _.remove(state.currentGame.players, player => player.playerId === playerId);
@@ -84,17 +87,24 @@ export const mutations = {
 };
 
 export const actions = {
-  async [CREATE_GAME]({ commit, dispatch }, { secret }) {
+  async [CREATE_GAME]({ commit, dispatch }, { secret, playerName, gravatar }) {
     try {
       const { data, headers } = await this.$api.post("games", {
-        secret
+        secret,
+        playerName,
+        gravatar
       });
       commit(SET_GAME_SESSION, {
         playerId: data.playerId,
         accessToken: data.token.access_Token
       });
       commit(SET_GAME_SECRET, { secret: secret });
-      commit(PLAYER_ADDED_TO_GAME, { gameId: data.id, playerId: data.playerId });
+      commit(PLAYER_ADDED_TO_GAME, {
+        gameId: data.id,
+        playerId: data.playerId,
+        playerName,
+        gravatar
+      });
 
       await dispatch(CONNECT_WEBSOCKET);
 
@@ -111,12 +121,19 @@ export const actions = {
     }
   },
 
-  async [JOIN_GAME]({ commit, dispatch }, { gameId, secret }) {
+  async [JOIN_GAME]({ commit, dispatch }, { gameId, secret, playerName, gravatar }) {
     try {
-      const { data } = await this.$api.post(`games/${gameId}/players`, { secret });
+      const { data } = await this.$api.post(`games/${gameId}/players`, {
+        secret,
+        playerName,
+        gravatar
+      });
 
-      commit(SET_GAME_SESSION, { playerId: data.playerId, accessToken: data.token.access_Token });
-      commit(PLAYER_ADDED_TO_GAME, { gameId, playerId: data.playerId });
+      commit(SET_GAME_SESSION, {
+        playerId: data.playerId,
+        accessToken: data.token.access_Token
+      });
+      commit(PLAYER_ADDED_TO_GAME, { gameId, playerId: data.playerId, playerName, gravatar });
 
       await dispatch(CONNECT_WEBSOCKET);
 
@@ -178,8 +195,8 @@ export const actions = {
   },
 
   async [CONNECT_WEBSOCKET]({ commit, dispatch }) {
-    this.$signalr.on("PlayerAddedToGame", ({ gameId, playerId }) => {
-      commit(PLAYER_ADDED_TO_GAME, { gameId, playerId });
+    this.$signalr.on("PlayerAddedToGame", ({ gameId, playerId, playerName, gravatar }) => {
+      commit(PLAYER_ADDED_TO_GAME, { gameId, playerId, playerName, gravatar });
     });
 
     this.$signalr.on("PlayerRemovedFromGame", ({ gameId, playerId }) => {
@@ -194,15 +211,7 @@ export const actions = {
       commit(SET_GAME_STATE, { gameState: "Playing" });
     });
 
-    await this.$signalr
-      .start()
-      .then(() => {
-        commit(SET_WEBSOCKET_CONNECTION, { connected: true });
-      })
-      .catch(err => {
-        commit(SET_WEBSOCKET_CONNECTION, { connected: false });
-        setTimeout(async () => await dispatch(CONNECT_WEBSOCKET), 5000);
-      });
+    await startSignalR(this.$signalr, commit);
   },
   async [GET_GAME]({ commit }, { location }) {
     try {
@@ -222,3 +231,15 @@ export const actions = {
     }
   }
 };
+
+async function startSignalR(signalr, commit) {
+  await signalr
+    .start()
+    .then(() => {
+      commit(SET_WEBSOCKET_CONNECTION, { connected: true });
+    })
+    .catch(err => {
+      commit(SET_WEBSOCKET_CONNECTION, { connected: false });
+      setTimeout(async () => await startSignalR(signalr, commit), 5000);
+    });
+}
