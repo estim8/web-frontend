@@ -38,7 +38,7 @@ const router = new Router({
       name: "join-session",
       component: JoinGame,
       meta: { title: "Join a game" },
-      props: route => ({ gameId: route.params.gameId })
+      props: route => ({ gameId: route.params.gameId, secret: route.query.secret })
     },
     {
       path: "/join",
@@ -53,7 +53,7 @@ const router = new Router({
       props: route => ({ gameId: route.params.gameId }),
       beforeResolve(to, from, next) {
         if (to.params.gameId !== store.getters["games/activeGameId"]) {
-          next({ name: "join-session", params: { gameId: to.params.gameId } });
+          next({ name: "join-session", params: { gameId: to.query.secret } });
         }
 
         next();
