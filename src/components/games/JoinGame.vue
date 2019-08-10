@@ -1,13 +1,13 @@
 <template>
-  <div class="row row-xs">
-    <div class="col-lg-12">
-      <div class="row">
+  <div class="row">
+    <div class="col">
+      <div v-if="!this.gameId">
         <b-form>
           <b-button @click="scanQR">Scan QR</b-button>
           <qrcode-stream v-if="showQrScanner" @decode="onDecode"></qrcode-stream>
         </b-form>
       </div>
-      <div v-if="!showQrScanner" class="row">
+      <div v-if="!showQrScanner">
         <b-form>
           <b-form-group>
             <label class="d-block">Game ID</label>
@@ -15,7 +15,7 @@
           </b-form-group>
           <b-form-group>
             <label class="d-block">Secret</label>
-            <b-input v-model="secret" />
+            <b-input v-model="secretEntered" />
           </b-form-group>
           <b-form-group>
             <label class="d-block">Player name</label>
@@ -38,10 +38,10 @@ import { QrcodeStream } from "vue-qrcode-reader";
 export default {
   name: "JoinGame",
   components: { QrcodeStream },
-  props: { gameId: String },
+  props: { gameId: { type: String, default: "" }, secret: { type: String, default: "" } },
   data() {
     return {
-      secret: "",
+      secretEntered: this.secret,
       playerName: "",
       gravatar: undefined,
       gameIdEntered: this.gameId,
@@ -65,7 +65,7 @@ export default {
           gravatar: this.gravatar
         })
         .then(() => {
-          this.$router.push({ name: "join-session", params: { gameId: this.gameIdEntered } });
+          this.$router.push({ name: "host-session", params: { gameId: this.gameIdEntered } });
         })
         .catch(() => this.$router.push({ name: "error" }));
     },

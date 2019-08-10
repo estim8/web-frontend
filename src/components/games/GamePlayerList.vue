@@ -1,18 +1,20 @@
 <template>
-  <div>
-    Players:
-    <ul>
-      <li v-for="player in activeGame.players" :key="player.playerId">
-        <avatar
-          :src="formatGravatar(player)"
-          :username="player.playerName"
-          :title="player.playerName"
-        />
-        <span v-if="player.playerId === activeGame.dealerId" class="badge badge-primary">
-          dealer
-        </span>
-      </li>
-    </ul>
+  <div class="d-flex flex-wrap align-content-center justify-content-center">
+    <div
+      v-for="player in activeGame.players"
+      :key="player.playerId"
+      class="d-flex flex-column p-3 justify-content-top"
+    >
+      <avatar
+        :src="formatGravatar(player)"
+        :username="player.playerName"
+        :title="player.playerName"
+        class="p-1"
+      />
+      <span v-if="player.playerId === activeGame.dealerId" class="badge badge-primary p-1">
+        dealer
+      </span>
+    </div>
   </div>
 </template>
 
