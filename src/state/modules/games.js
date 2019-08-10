@@ -52,10 +52,18 @@ export const getters = {
 };
 
 export const mutations = {
-  [SET_ACTIVE_GAME](state, game) {
+  [SET_ACTIVE_GAME](state, { game, players }) {
     state.currentGame.gameId = game.id;
     state.currentGame.state = game.state;
     state.currentGame.dealerId = game.dealerId;
+
+    players.forEach(p => {
+      if (!_.find(state.currentGame.players, player => player.playerId === p.id))
+        state.currentGame.players = [
+          ...state.currentGame.players,
+          { playerId: p.id, playerName: p.name, gravatar: p.email }
+        ];
+    });
   },
   [SET_GAME_SESSION](state, { accessToken, playerId }) {
     state.currentGame.session.accessToken = accessToken;
@@ -139,6 +147,7 @@ export const actions = {
 
       await dispatch(GET_GAME, { location: `games/${gameId}` });
     } catch (e) {
+      console.log({ e });
       commit(
         "app/SET_APP_ERROR",
         { errorCode: e.response.status, message: e.response.statusText },
@@ -218,11 +227,15 @@ export const actions = {
       const { data } = await this.$api.get(location);
 
       commit(SET_ACTIVE_GAME, {
-        id: data.id,
-        state: data.state,
-        dealerId: data.dealerId
+        game: {
+          id: data.id,
+          state: data.state,
+          dealerId: data.dealerId
+        },
+        players: data.players
       });
     } catch (e) {
+      console.log({ e });
       commit(
         "app/SET_APP_ERROR",
         { errorCode: e.response.status, message: e.response.statusText },
